@@ -1,7 +1,12 @@
 module.exports = function (operators) {
   return (l, r) => (data) => {
-    return operators['OR'](l, function (...args) {
-      return -r(...args);
-    })(data);
+    let rl = l(data) || 0,
+      rr = r(data) || 0;
+    //     rla = Math.abs(rl),
+    //     rra = Math.abs(rr);
+    // if (rla > rra) return rl;
+    // if (rla < rra) return rr;
+    // return Math.max(rl, rr);
+    return rl || !rr;
   };
 };
