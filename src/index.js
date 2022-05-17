@@ -22,7 +22,7 @@ const lucene = (module.exports = function factory(parser) {
       try {
         query = parser.parse(query);
       } catch (e) {
-        console.log(e);
+        throw e;
         return () => 0;
       }
     }
