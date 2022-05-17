@@ -10,13 +10,13 @@ const data = [
   },
   {
     name: "R2-D2",
-    description: "Astromech droid built on Naboo.",
+    description: "Astromech droid built on Naboo.[123]",
     species: "Droid",
     cost: 1000,
   },
   {
     name: "R2-D2",
-    description: "Astromech droid built on Naboo.",
+    description: "Astromech droid built on Naboo.[abc]",
     species: "Human",
     cost: 1500,
   },
@@ -35,7 +35,7 @@ const data = [
   },
 ];
 
-// Prints an array with both R2-D2 and C-3PO
+/* // Prints an array with both R2-D2 and C-3PO
 console.log(data.filter(lucene("species: droid")).map((x) => x.name));
 
 // Prints an array with only R2-D2
@@ -68,4 +68,10 @@ console.log(
     lucene("cost:[2000 TO 10000} AND (species: Human OR species: Wolf)")
   )
 );
-// none left right both
+function fixedEncodeURIComponent(str) {
+  return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+    return "%" + c.charCodeAt(0).toString(16).toUpperCase();
+  });
+}
+console.log(fixedEncodeURIComponent("[]")); */
+console.log(data.filter(lucene("\\[123\\]")));
