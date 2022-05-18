@@ -42,6 +42,6 @@
     "engine"
   ],
   "dependencies": {
-    "lucene": "^2.1.1"
+    "lucene": "github:orangeswim/lucene"
   }
 }

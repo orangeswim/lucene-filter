@@ -119,9 +119,9 @@ const data = [
     e: "<Blocker>(When your opponent attacks, by resting this card, you can change the attack target to this card)",
     al: null,
     intl: "0",
-    srcN: "Straw Hat ||Crew [ST-01]",
+    srcN: "Straw Hat Crew [ST-01]",
     srcD: "2022-12-01",
   },
 ];
 
-console.log(data.filter(lucene("\\||")).map((c) => c.n + " " + c.cid));
+console.log(data.filter(lucene("\\[ST", true)).map((c) => c.n + " " + c.cid));
