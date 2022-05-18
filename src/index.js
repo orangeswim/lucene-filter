@@ -29,15 +29,18 @@ const lucene = (module.exports = function factory(parser) {
 
     // Compile multi-query
     if (query.operator) {
+      if (!lucene.operators[query.operator]) {
+        throw `${query.operator} operator does not exist`;
+      }
       return lucene.operators[query.operator](
-        compile(query.left),
-        compile(query.right)
+        compile(query.left, escaped),
+        compile(query.right, escaped)
       );
     }
 
     // Wrapped
     if (query.left) {
-      return compile(query.left);
+      return compile(query.left, escaped);
     }
 
     // unescape query
