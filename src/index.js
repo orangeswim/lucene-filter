@@ -15,7 +15,7 @@ const lucene = (module.exports = function factory(parser) {
   }
 
   // Returns Function(Object):Number
-  function compile(query) {
+  function compile(query, escaped) {
     if (!query) return () => 0;
 
     if ("string" === typeof query) {
@@ -41,7 +41,7 @@ const lucene = (module.exports = function factory(parser) {
     }
 
     // unescape query
-    if (query.term != undefined) {
+    if (query.term != undefined && escaped) {
       query.term = query.term.replaceAll("\\", "");
     }
 
