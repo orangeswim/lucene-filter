@@ -125,3 +125,5 @@ const data = [
 ];
 
 console.log(data.filter(lucene("\\[ST", true)).map((c) => c.n + " " + c.cid));
+
+console.log(data.filter(lucene("(col:1)", true)).map((c) => c.n + " " + c.cid));

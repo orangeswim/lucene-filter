@@ -17,9 +17,6 @@ const lucene = (module.exports = function factory(parser) {
   // Returns Function(Object):Number
   function compile(query, escaped, excludeImplicitKeys = [], returnQuery) {
     if (!query) return () => 0;
-    if (returnQuery) {
-      return [compile(query, escaped, excludeImplicitKeys || [], false), query];
-    }
 
     if ("string" === typeof query) {
       try {
@@ -28,6 +25,10 @@ const lucene = (module.exports = function factory(parser) {
         throw e;
         return () => 0;
       }
+    }
+
+    if (returnQuery) {
+      return [compile(query, escaped, excludeImplicitKeys || [], false), query];
     }
 
     // Compile multi-query
