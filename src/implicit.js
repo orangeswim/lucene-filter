@@ -8,6 +8,6 @@ const implicit = (module.exports = function (data, excludeImplicitKeys, test) {
   return Object.keys(data)
     .filter((k) => !excludeImplicitKeys.includes(k))
     .reduce((r, key) => {
-      return r || require("./field")(key, data, test);
+      return r || require("./field")(key, data, excludeImplicitKeys, test);
     }, false);
 });

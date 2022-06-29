@@ -15,10 +15,10 @@ const lucene = (module.exports = function factory(parser) {
   }
 
   // Returns Function(Object):Number
-  function compile(query, escaped, excludeImplicitKeys, returnQuery) {
+  function compile(query, escaped, excludeImplicitKeys = [], returnQuery) {
     if (!query) return () => 0;
     if (returnQuery) {
-      return [compile(query, escaped, excludeImplicitKeys, false), query];
+      return [compile(query, escaped, excludeImplicitKeys || [], false), query];
     }
 
     if ("string" === typeof query) {
