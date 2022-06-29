@@ -8,9 +8,9 @@ module.exports = {
     if (isNaN(query.term_min)) return false;
     return !isNaN(query.term_max);
   },
-  compile: function (query) {
+  compile: function (quer, excludeImplicitKeys) {
     return function (data) {
-      return field(query.field, data, function (value) {
+      return field(query.field, data, excludeImplicitKeys, function (value) {
         //console.log("range value", query, value);
         let min = parseInt(query.term_min),
           max = parseInt(query.term_max);

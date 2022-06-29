@@ -7,9 +7,9 @@ module.exports = {
     if ("string" !== typeof query.field) return false;
     return "string" === typeof query.term;
   },
-  compile: function (query) {
+  compile: function (query, excludeImplicitKeys) {
     return function (data) {
-      return field(query.field, data, function (value) {
+      return field(query.field, data, excludeImplicitKeys, function (value) {
         if ("string" !== typeof value) return false;
         return value.toLowerCase().indexOf(query.term.toLowerCase()) >= 0;
       })

@@ -15,8 +15,11 @@ const lucene = (module.exports = function factory(parser) {
   }
 
   // Returns Function(Object):Number
-  function compile(query, escaped) {
+  function compile(query, escaped, excludeImplicitKeys, returnQuery) {
     if (!query) return () => 0;
+    if (returnQuery) {
+      return [compile(query, escaped, excludeImplicitKeys, false), query];
+    }
 
     if ("string" === typeof query) {
       try {
@@ -33,14 +36,14 @@ const lucene = (module.exports = function factory(parser) {
         throw `${query.operator} operator does not exist`;
       }
       return lucene.operators[query.operator](
-        compile(query.left, escaped),
-        compile(query.right, escaped)
+        compile(query.left, escaped, excludeImplicitKeys),
+        compile(query.right, escaped, excludeImplicitKeys)
       );
     }
 
     // Wrapped
     if (query.left) {
-      return compile(query.left, escaped);
+      return compile(query.left, escaped, excludeImplicitKeys);
     }
 
     // unescape query
@@ -54,7 +57,7 @@ const lucene = (module.exports = function factory(parser) {
     // Return the first detected filter
     for (const filter of lucene.filters) {
       if (filter.detect(query)) {
-        return filter.compile(query);
+        return filter.compile(query, excludeImplicitKeys);
       }
     }
 
