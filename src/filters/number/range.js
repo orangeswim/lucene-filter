@@ -8,7 +8,7 @@ module.exports = {
     if (isNaN(query.term_min)) return false;
     return !isNaN(query.term_max);
   },
-  compile: function (quer, excludeImplicitKeys) {
+  compile: function (query, excludeImplicitKeys) {
     return function (data) {
       return field(query.field, data, excludeImplicitKeys, function (value) {
         //console.log("range value", query, value);
